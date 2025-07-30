@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test CSV LA CHATTE</title>
+</head>
+<body>
+  <h1>Test CSV LA CHATTE</h1>
+  <pre id="output">Chargement…</pre>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script>
+    const url = 'https://corsproxy.io/?https://docs.google.com/spreadsheets/d/e/2PACX-1vSuc-XJn1YmTCl-5WtrYeOKBS8nfTnRsFCfeNMRvzJcbavfGIX9SUSQdlZnVNPQtapcgr2m4tAwYznB/pub?gid=363948896&single=true&output=csv';
+
+    Papa.parse(url, {
+      download: true,
+      header: false,
+      complete: function(results) {
+        console.log("Données CSV :", results.data);
+        document.getElementById("output").textContent = JSON.stringify(results.data, null, 2);
+      },
+      error: function(err) {
+        document.getElementById("output").textContent = "Erreur : " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
